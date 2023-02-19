@@ -1,0 +1,76 @@
+---
+import Reply from './Reply.astro';
+
+export interface Props {
+	username: string;
+	createdAt: string;
+	userImage: string;
+	content: string;
+}
+
+const {
+	username,
+	createdAt,
+	userImage,
+	content,
+	replies,
+} = Astro.props;
+
+let counter = 0;
+
+---
+
+<section>
+	<aside>
+		<button class="plus"></button>
+		<p>{counter}</p>
+		<button class="minus"></button>
+	</aside>
+	<div>
+		<header>
+			<div>
+				<img src={userImage} alt="Profile image">
+				<p class="username">{username}</p>
+				<p class="createdAt">{createdAt}</p>
+			</div>
+			<button class="reply-button"><img src="" alt="Reply icon">Reply</button>
+		</header>
+	</div>
+</section>
+
+<style>
+	section, header, aside {
+		display: flex;
+	}
+	button {
+		background: none;
+		border: none;
+		cursor: pointer;
+	}
+	aside {
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		background-color: var(--color-light-gray);
+		padding: 0.75rem 1rem;
+		border-radius: 0.5rem;
+	}
+	aside p {
+		color: var(--color-moderate-blue);
+		font-weight: 500;
+	}
+	aside button {
+		display: inline-block;
+  	width: 0.75rem;
+		height: 0.75rem;
+  	background-size: contain;
+		background-repeat: no-repeat;
+		background-position: center;
+	}
+	.plus {
+		background-image: url('./images/icon-plus.svg');
+	}
+	.minus {
+		background-image: url('./images/icon-minus.svg');
+	}
+</style>

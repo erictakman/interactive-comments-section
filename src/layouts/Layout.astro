@@ -28,7 +28,7 @@ const { title } = Astro.props;
 	</body>
 </html>
 
-<style>
+<style is:global>
 	@font-face {
 		font-family: "Rubik";
 		src: url("https://fonts.google.com/specimen/Rubik");
@@ -56,101 +56,12 @@ const { title } = Astro.props;
 		background-color: var(--color-very-light-gray);
 	}
 
-	main,
-	.comment,
-	.score,
-	.comment-body,
-	.comment-header,
-	.comment-about {
-		display: flex;
-	}
-
 	main {
-		height: 100vh;
+		min-height: 100vh;
+		display: flex;
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
 	}
 
-	.comment {
-		background-color: var(--color-white);
-		border-radius: 10px;
-		padding: 1.5rem;
-	}
-
-	.score {
-		flex-direction: column;
-		align-items: center;
-	}
-
-	.score-button {
-		border: none;
-		cursor: pointer;
-		fill: var(--color-light-gray);
-	}
-
-	.score-button:hover {
-		fill: var(--color-moderate-blue);
-	}
-
-	.comment-header {
-		align-items: space-between;
-	}
-
-	.comment-about {
-		gap: 1rem;
-	}
-
-	.comment-user-image {
-		width: 2rem;
-		height: 2rem;
-	}
-
-	.comment-username {
-		font-weight: 700;
-		color: var(--color-dark-blue);
-	}
-
-	.reply-user-image {
-		width: 1.5rem;
-	}
-
-	.comment-content,
-	.reply-content {
-		padding: 1rem;
-		border: 1px solid var(--color-light-gray);
-		border-radius: 1rem;
-	}
-
-	button {
-		background-color: var(--color-moderate-blue);
-		color: var(--color-white);
-		border: none;
-		border-radius: 1rem;
-		padding: 1rem 2rem;
-		font-size: 1.5rem;
-		font-weight: 500;
-		cursor: pointer;
-	}
-
-	button:hover {
-		background-color: var(--color-light-grayish-blue);
-	}
-
-	.icon-button {
-		background-color: transparent;
-		color: var(--color-moderate-blue);
-		border: none;
-		cursor: pointer;
-	}
-
-	.icon-button:hover {
-		color: var(--color-light-grayish-blue);
-	}
-
-	@media screen and (max-width: 375px) {
-	}
-
-	@media screen and (max-width: 1440px) {
-	}
 </style>

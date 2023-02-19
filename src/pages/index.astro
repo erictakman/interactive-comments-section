@@ -1,22 +1,15 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Comment from "../components/Comment.astro";
 ---
 <Layout title="Interactive comments section">
 	<main>
-		<div class="comment">
-      <div class="score">
-        
-      </div>
-      <div class="comment-body">
-        <div class="comment-header">
-          <div class="comment-about">
-            <img class="comment-user-image" src="./assets/images/avatars/image-amyrobson.png" alt="Profile image" />
-            <p class="comment-username">amyrobson</p>
-            <p>1 week ago</p>
-          </div>
-        </div>
-      </div>
-    </div>
+		<Comment
+      username=""
+      userImage=""
+      createdAt=""
+      content=""
+    />
 	</main>
 </Layout>
 

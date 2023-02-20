@@ -3,10 +3,46 @@ import Layout from "../layouts/Layout.astro";
 import Comment from "../components/Comment.astro";
 import { data } from "../data/commentsData";
 
+
 ---
+
 <Layout title="Interactive comments section">
-	<main>
-    
-	</main>
+  <main>
+    {
+      data.comments.map((comment) => {
+        return <Comment 
+          userImage={comment.user.image.webp} 
+          username={comment.user.username}
+          content={comment.content}
+          createdAt={comment.createdAt}
+          counter={comment.replies.length ?? 0}
+        />
+      })
+    }
+  </main>
 </Layout>
 
+<script is:inline>
+	let counter = document.querySelectorAll("p[data-counter]");
+  let increase = document.querySelectorAll("button[data-counterIncrease]");
+  let decrease = document.querySelectorAll("button[data-counterDecrease]");
+  const handleIncreaseCounter = (i) => {
+    counter[i].innerHTML = parseInt(counter[i].innerHTML) + 1;
+  }
+  const handleDecreaseCounter = (i) => {
+    counter[i].innerHTML = parseInt(counter[i].innerHTML) - 1;
+  }
+  for(let i = 0; i < counter.length; i++) {
+    increase[i].addEventListener("click", () => handleIncreaseCounter(i))
+    decrease[i].addEventListener("click", () => handleDecreaseCounter(i))
+  }
+</script>
+
+<style>
+  main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+</style>

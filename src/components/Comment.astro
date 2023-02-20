@@ -1,43 +1,34 @@
 ---
-import IconPlus from './icons/icon-plus.astro';
-import IconMinus from './icons/icon-minus.astro';
-import IconReply from './icons/icon-reply.astro';
-import Reply from './Reply.astro';
-import { data } from '../data/commentsData';
+import IconPlus from "./icons/icon-plus.astro";
+import IconMinus from "./icons/icon-minus.astro";
+import IconReply from "./icons/icon-reply.astro";
+import Reply from "./Reply.astro";
 
 export interface Props {
 	username: string;
 	createdAt: string;
 	userImage: string;
 	content: string;
+	counter: number;
 }
 
-const {
-	username,
-	createdAt,
-	userImage,
-	content,
-	replies,
-} = Astro.props;
-
-let counter = 0;
-
+const { username, createdAt, userImage, content, counter } = Astro.props;
 ---
 
 <section>
 	<aside>
-		<button>
+		<button data-counterIncrease>
 			<IconPlus />
 		</button>
-		<p>{counter}</p>
-		<button>
+		<p data-counter>{counter}</p>
+		<button data-counterDecrease>
 			<IconMinus />
 		</button>
 	</aside>
 	<div>
 		<header>
 			<div>
-				<img src={userImage} alt="Profile image">
+				<img src={userImage} alt="Profile image" />
 				<p class="username">{username}</p>
 				<p class="createdAt">{createdAt}</p>
 			</div>
@@ -53,14 +44,19 @@ let counter = 0;
 </section>
 
 <style>
-	section, header, aside, button, section > div, header > div {
+	section,
+	header,
+	aside,
+	button,
+	section > div,
+	header > div {
 		display: flex;
 	}
 	section {
-		gap: 1rem;
+		gap: 1.5rem;
 		max-width: 700px;
 		align-items: start;
-		padding: 1rem;
+		padding: 1.5rem;
 		border-radius: 0.5rem;
 		background-color: var(--color-white);
 	}
@@ -86,7 +82,7 @@ let counter = 0;
 		font-weight: 500;
 	}
 	aside button {
-		width: 1.5rem;	
+		width: 1.5rem;
 	}
 	aside button :global(path) {
 		fill: var(--color-light-grayish-blue);
@@ -102,14 +98,16 @@ let counter = 0;
 		align-items: center;
 		justify-content: space-between;
 	}
-	header button, header button :global(path) {
+	header button,
+	header button :global(path) {
 		font-family: var(--font-family);
 		font-size: var(--font-size);
 		font-weight: 500;
 		color: var(--color-moderate-blue);
 		fill: var(--color-moderate-blue);
 	}
-	header button:hover, header button:hover :global(path) {
+	header button:hover,
+	header button:hover :global(path) {
 		color: var(--color-light-grayish-blue);
 		fill: var(--color-light-grayish-blue);
 	}

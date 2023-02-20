@@ -2,39 +2,59 @@
 import Layout from "../layouts/Layout.astro";
 import Comment from "../components/Comment.astro";
 import { data } from "../data/commentsData";
-
-
 ---
 
 <Layout title="Interactive comments section">
   <main>
     {
       data.comments.map((comment) => {
-        return <Comment 
-          userImage={comment.user.image.webp} 
-          username={comment.user.username}
-          content={comment.content}
-          createdAt={comment.createdAt}
-          counter={comment.replies.length ?? 0}
-        />
+        return (
+          <>
+            <Comment
+              userImage={comment.user.image.webp}
+              username={comment.user.username}
+              content={comment.content}
+              createdAt={comment.createdAt}
+              counter={comment.score}
+            />
+            {
+              comment.replies.length > 0 
+              && 
+              <section class="replies">
+                {comment.replies.map((reply) => {
+                  return (
+                    <Comment
+                      type="reply"
+                      userImage={reply.user.image.webp}
+                      username={reply.user.username}
+                      content={reply.content}
+                      createdAt={reply.createdAt}
+                      counter={reply.score}
+                    />
+                  );
+                })}
+              </section>
+            }
+          </>
+        );
       })
     }
   </main>
 </Layout>
 
 <script is:inline>
-	let counter = document.querySelectorAll("p[data-counter]");
+  let counter = document.querySelectorAll("p[data-counter]");
   let increase = document.querySelectorAll("button[data-counterIncrease]");
   let decrease = document.querySelectorAll("button[data-counterDecrease]");
   const handleIncreaseCounter = (i) => {
     counter[i].innerHTML = parseInt(counter[i].innerHTML) + 1;
-  }
+  };
   const handleDecreaseCounter = (i) => {
     counter[i].innerHTML = parseInt(counter[i].innerHTML) - 1;
-  }
-  for(let i = 0; i < counter.length; i++) {
-    increase[i].addEventListener("click", () => handleIncreaseCounter(i))
-    decrease[i].addEventListener("click", () => handleDecreaseCounter(i))
+  };
+  for (let i = 0; i < counter.length; i++) {
+    increase[i].addEventListener("click", () => handleIncreaseCounter(i));
+    decrease[i].addEventListener("click", () => handleDecreaseCounter(i));
   }
 </script>
 
@@ -44,5 +64,11 @@ import { data } from "../data/commentsData";
     flex-direction: column;
     align-items: center;
     gap: 1rem;
+  }
+  .replies {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-left: 2rem;
   }
 </style>

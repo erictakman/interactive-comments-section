@@ -1,5 +1,9 @@
 ---
+import IconPlus from './icons/icon-plus.astro';
+import IconMinus from './icons/icon-minus.astro';
+import IconReply from './icons/icon-reply.astro';
 import Reply from './Reply.astro';
+import { data } from '../data/commentsData';
 
 export interface Props {
 	username: string;
@@ -22,9 +26,13 @@ let counter = 0;
 
 <section>
 	<aside>
-		<button class="plus"></button>
+		<button>
+			<IconPlus />
+		</button>
 		<p>{counter}</p>
-		<button class="minus"></button>
+		<button>
+			<IconMinus />
+		</button>
 	</aside>
 	<div>
 		<header>
@@ -33,44 +41,89 @@ let counter = 0;
 				<p class="username">{username}</p>
 				<p class="createdAt">{createdAt}</p>
 			</div>
-			<button class="reply-button"><img src="" alt="Reply icon">Reply</button>
+			<button class="reply-button">
+				<IconReply />
+				Reply
+			</button>
 		</header>
+		<p class="content">
+			{content}
+		</p>
 	</div>
 </section>
 
 <style>
-	section, header, aside {
+	section, header, aside, button, section > div, header > div {
 		display: flex;
+	}
+	section {
+		gap: 1rem;
+		max-width: 700px;
+		align-items: start;
+		padding: 1rem;
+		border-radius: 0.5rem;
+		background-color: var(--color-white);
 	}
 	button {
 		background: none;
 		border: none;
 		cursor: pointer;
+		align-items: center;
+		justify-content: center;
+		gap: 0.5rem;
 	}
 	aside {
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
 		background-color: var(--color-light-gray);
-		padding: 0.75rem 1rem;
+		padding: 1rem 0.5rem;
 		border-radius: 0.5rem;
+		gap: 0.5rem;
 	}
 	aside p {
 		color: var(--color-moderate-blue);
 		font-weight: 500;
 	}
 	aside button {
-		display: inline-block;
-  	width: 0.75rem;
-		height: 0.75rem;
-  	background-size: contain;
-		background-repeat: no-repeat;
-		background-position: center;
+		width: 1.5rem;	
 	}
-	.plus {
-		background-image: url('./images/icon-plus.svg');
+	aside button :global(path) {
+		fill: var(--color-light-grayish-blue);
 	}
-	.minus {
-		background-image: url('./images/icon-minus.svg');
+	aside button:hover :global(path) {
+		fill: var(--color-moderate-blue);
+	}
+	section > div {
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+	header {
+		align-items: center;
+		justify-content: space-between;
+	}
+	header button, header button :global(path) {
+		font-family: var(--font-family);
+		font-size: var(--font-size);
+		font-weight: 500;
+		color: var(--color-moderate-blue);
+		fill: var(--color-moderate-blue);
+	}
+	header button:hover, header button:hover :global(path) {
+		color: var(--color-light-grayish-blue);
+		fill: var(--color-light-grayish-blue);
+	}
+	header > div {
+		align-items: center;
+		gap: 1rem;
+	}
+	header > div img {
+		width: 2rem;
+		height: 2rem;
+		border-radius: 50%;
+	}
+	.username {
+		color: var(--color-dark-blue);
+		font-weight: 700;
 	}
 </style>

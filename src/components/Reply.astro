@@ -1,7 +1,16 @@
 ---
 export interface Props {
-
+	type: "send" | "reply";
+	userImage: string;
 }
 
-const {} = Astro.props
+const { type = "send", userImage } = Astro.props;
 ---
+
+<div>
+	<img src={userImage} alt="Profile image" />
+	<button class="send-button">
+		{type == "send" ? "Send" : "Reply"}
+	</button>
+	<input />
+</div>

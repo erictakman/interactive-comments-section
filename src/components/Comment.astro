@@ -1,56 +1,68 @@
 ---
-import IconPlus from "./icons/icon-plus.astro";
-import IconMinus from "./icons/icon-minus.astro";
-import IconReply from "./icons/icon-reply.astro";
+import CommentHeader from "./CommentHeader.astro";
+import CommentScore from "./CommentScore.astro";
+import Content from "./Content.astro";
+import Edit from "./Edit.astro";
 
 type CommentType = "comment" | "reply";
 
 export interface Props {
+	byCurrentUser?: boolean;
 	type?: CommentType;
+	edit?: boolean;
 	username: string;
 	createdAt: string;
 	userImage: string;
 	content: string;
 	counter: number;
-	replies?: Array<Comment>;
 }
 
-const { type = "comment", username, createdAt, userImage, content, counter } = Astro.props;
+const {
+	byCurrentUser,
+	type = "comment",
+	username,
+	createdAt,
+	userImage,
+	content,
+	counter,
+} = Astro.props;
+
+let edit = false;
+
 ---
 
 <section class={type == "reply" ? "is-reply" : ""}>
-	<aside>
-		<button data-counterIncrease>
-			<IconPlus />
-		</button>
-		<p data-counter>{counter}</p>
-		<button data-counterDecrease>
-			<IconMinus />
-		</button>
-	</aside>
-	<div>
-		<header>
-			<div>
-				<img src={userImage} alt="Profile image" />
-				<p class="username">{username}</p>
-				<p>{createdAt}</p>
-			</div>
-			<button class="reply-button">
-				<IconReply />
-				Reply
-			</button>
-		</header>
-		<p>{content}</p>
+	<CommentScore counter={counter} />
+	<div data-comment>
+		<CommentHeader
+			username={username}
+			createdAt={createdAt}
+			userImage={userImage}
+		/>
+		{
+			edit ? (
+				<Content content={content} />
+			) : (
+				<Edit content={content} />
+			)
+		}
 	</div>
 </section>
 
+<script>
+	const updateButtons = document.querySelectorAll("button[data-update]")
+
+	updateButtons.forEach(button => {
+		button.addEventListener("click", () => {
+			
+		})
+	});
+</script>
+
 <style>
 	section,
-	header,
-	aside,
-	button,
-	section > div,
-	header > div {
+	div,
+	button {
 		display: flex;
 	}
 	section {
@@ -64,68 +76,11 @@ const { type = "comment", username, createdAt, userImage, content, counter } = A
 	section.is-reply {
 		max-width: 640px;
 	}
-	button {
-		background: none;
-		border: none;
-		cursor: pointer;
-		align-items: center;
-		justify-content: center;
-		gap: 0.5rem;
-	}
-	aside {
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		background-color: var(--color-light-gray);
-		padding: 1rem 0.5rem;
-		border-radius: 0.5rem;
-		gap: 0.5rem;
-	}
-	aside p {
-		color: var(--color-moderate-blue);
-		font-weight: 500;
-	}
-	aside button {
-		width: 1.5rem;
-	}
-	aside button :global(path) {
-		fill: var(--color-light-grayish-blue);
-	}
-	aside button:hover :global(path) {
-		fill: var(--color-moderate-blue);
-	}
-	section > div {
+	div {
 		flex-direction: column;
 		gap: 0.5rem;
 	}
-	header {
-		align-items: center;
-		justify-content: space-between;
-	}
-	header button,
-	header button :global(path) {
-		font-family: var(--font-family);
-		font-size: var(--font-size);
-		font-weight: 500;
-		color: var(--color-moderate-blue);
-		fill: var(--color-moderate-blue);
-	}
-	header button:hover,
-	header button:hover :global(path) {
-		color: var(--color-light-grayish-blue);
-		fill: var(--color-light-grayish-blue);
-	}
-	header > div {
-		align-items: center;
-		gap: 1rem;
-	}
-	header > div img {
-		width: 2rem;
-		height: 2rem;
-		border-radius: 50%;
-	}
-	.username {
-		color: var(--color-dark-blue);
-		font-weight: 700;
+	section.is-reply :global(textarea) {
+		width: 540px;
 	}
 </style>

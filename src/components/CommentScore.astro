@@ -1,0 +1,72 @@
+---
+import IconPlus from "./icons/icon-plus.astro";
+import IconMinus from "./icons/icon-minus.astro";
+
+export interface Props {
+	counter: number;
+}
+
+const { counter } = Astro.props;
+---
+
+<aside>
+	<button data-counterIncrease>
+		<IconPlus />
+	</button>
+	<p data-counter>{counter}</p>
+	<button data-counterDecrease>
+		<IconMinus />
+	</button>
+</aside>
+
+<script>
+	let counter = document.querySelectorAll("p[data-counter]");
+  let increase = document.querySelectorAll("button[data-counterIncrease]");
+  let decrease = document.querySelectorAll("button[data-counterDecrease]");
+  const handleIncreaseCounter = (i: number) => {
+		let currentCount = parseInt(counter[i].innerHTML) + 1;
+    counter[i].innerHTML = currentCount.toString();
+  };
+  const handleDecreaseCounter = (i: number) => {
+		let currentCount = parseInt(counter[i].innerHTML) - 1;
+    counter[i].innerHTML = currentCount.toString();
+  };
+  for (let i = 0; i < counter.length; i++) {
+    increase[i].addEventListener("click", () => handleIncreaseCounter(i));
+    decrease[i].addEventListener("click", () => handleDecreaseCounter(i));
+  }
+</script>
+
+<style>
+	aside {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		background-color: var(--color-light-gray);
+		padding: 1rem 0.5rem;
+		border-radius: 0.5rem;
+		gap: 0.5rem;
+	}
+	p {
+		color: var(--color-moderate-blue);
+		font-weight: 500;
+	}
+	button {
+		display: flex;
+		width: 1.5rem;
+		background: none;
+		border: none;
+		cursor: pointer;
+		align-items: center;
+		justify-content: center;
+		gap: 0.5rem;
+	}
+	button :global(path) {
+		fill: var(--color-light-grayish-blue);
+	}
+	button:hover :global(path) {
+		fill: var(--color-moderate-blue);
+	}
+	
+</style>

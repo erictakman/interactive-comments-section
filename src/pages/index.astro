@@ -2,6 +2,9 @@
 import Layout from "../layouts/Layout.astro";
 import Comment from "../components/Comment.astro";
 import { data } from "../data/commentsData";
+
+const type = "reply";
+
 ---
 
 <Layout title="Interactive comments section">
@@ -21,18 +24,18 @@ import { data } from "../data/commentsData";
               comment.replies.length > 0 
               && 
               <section class="replies">
-                {comment.replies.map((reply) => {
-                  return (
+                <div class="replies">
+                {comment.replies.map((reply) => (
                     <Comment
-                      type="reply"
+                      type={type}
                       userImage={reply.user.image.webp}
                       username={reply.user.username}
                       content={reply.content}
                       createdAt={reply.createdAt}
                       counter={reply.score}
                     />
-                  );
-                })}
+                ))}
+                </div>
               </section>
             }
           </>
@@ -42,33 +45,22 @@ import { data } from "../data/commentsData";
   </main>
 </Layout>
 
-<script is:inline>
-  let counter = document.querySelectorAll("p[data-counter]");
-  let increase = document.querySelectorAll("button[data-counterIncrease]");
-  let decrease = document.querySelectorAll("button[data-counterDecrease]");
-  const handleIncreaseCounter = (i) => {
-    counter[i].innerHTML = parseInt(counter[i].innerHTML) + 1;
-  };
-  const handleDecreaseCounter = (i) => {
-    counter[i].innerHTML = parseInt(counter[i].innerHTML) - 1;
-  };
-  for (let i = 0; i < counter.length; i++) {
-    increase[i].addEventListener("click", () => handleIncreaseCounter(i));
-    decrease[i].addEventListener("click", () => handleDecreaseCounter(i));
-  }
-</script>
-
 <style>
   main {
+    margin: 4rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 1rem;
   }
-  .replies {
+  section.replies {
+    margin-left: 2rem;
+    border-left: 2px solid var(--color-light-gray);
+    padding-left: 2rem;
+  }
+  div.replies {
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    margin-left: 2rem;
   }
 </style>

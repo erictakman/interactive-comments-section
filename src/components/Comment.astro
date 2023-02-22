@@ -10,6 +10,7 @@ export interface Props {
 	byCurrentUser?: boolean;
 	type?: CommentType;
 	edit?: boolean;
+	id: number;
 	username: string;
 	createdAt: string;
 	userImage: string;
@@ -20,14 +21,13 @@ export interface Props {
 const {
 	byCurrentUser,
 	type = "comment",
+	id,
 	username,
 	createdAt,
 	userImage,
 	content,
 	counter,
 } = Astro.props;
-
-let edit = false;
 
 ---
 
@@ -39,24 +39,13 @@ let edit = false;
 			createdAt={createdAt}
 			userImage={userImage}
 		/>
-		{
-			edit ? (
-				<Content content={content} />
-			) : (
-				<Edit content={content} />
-			)
-		}
+		<Content content={content} />
+		<Edit data-edit content={content} />
 	</div>
 </section>
 
 <script>
-	const updateButtons = document.querySelectorAll("button[data-update]")
-
-	updateButtons.forEach(button => {
-		button.addEventListener("click", () => {
-			
-		})
-	});
+	import "../controllers/ContentController.ts";
 </script>
 
 <style>
@@ -82,5 +71,8 @@ let edit = false;
 	}
 	section.is-reply :global(textarea) {
 		width: 540px;
+	}
+	.hidden {
+		display: none;
 	}
 </style>

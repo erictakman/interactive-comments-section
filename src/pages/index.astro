@@ -2,6 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import Comment from "../components/Comment.astro";
 import { data } from "../data/commentsData";
+import { CommentController } from "../controllers/CommentController";
 
 const type = "reply";
 
@@ -14,6 +15,7 @@ const type = "reply";
         return (
           <>
             <Comment
+              id={comment.id}
               userImage={comment.user.image.webp}
               username={comment.user.username}
               content={comment.content}
@@ -27,6 +29,7 @@ const type = "reply";
                 <div class="replies">
                 {comment.replies.map((reply) => (
                     <Comment
+                      id={reply.id}
                       type={type}
                       userImage={reply.user.image.webp}
                       username={reply.user.username}

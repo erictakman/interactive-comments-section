@@ -1,10 +1,7 @@
----
-export interface Props {
-	content: string;
-}
+<script>
+	export let content;
 
-const {content} = Astro.props
----
+</script>
 
 <textarea autocomplete="false" rows="4">
 	{content}

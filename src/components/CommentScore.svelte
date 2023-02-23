@@ -1,13 +1,23 @@
----
-import IconPlus from "./icons/icon-plus.astro";
-import IconMinus from "./icons/icon-minus.astro";
+<script>
+	import IconPlus from "./icons/icon-plus.astro";
+	import IconMinus from "./icons/icon-minus.astro";
 
-export interface Props {
-	counter: number;
-}
-
-const { counter } = Astro.props;
----
+	export let counter = document.querySelectorAll("p[data-counter]");
+  let increase = document.querySelectorAll("button[data-counterIncrease]");
+  let decrease = document.querySelectorAll("button[data-counterDecrease]");
+  const handleIncreaseCounter = (i) => {
+		let currentCount = parseInt(counter[i].innerHTML) + 1;
+    counter[i].innerHTML = currentCount.toString();
+  };
+  const handleDecreaseCounter = (i) => {
+		let currentCount = parseInt(counter[i].innerHTML) - 1;
+    counter[i].innerHTML = currentCount.toString();
+  };
+  for (let i = 0; i < counter.length; i++) {
+    increase[i].addEventListener("click", () => handleIncreaseCounter(i));
+    decrease[i].addEventListener("click", () => handleDecreaseCounter(i));
+  }
+</script>
 
 <aside>
 	<button data-counterIncrease>
@@ -18,24 +28,6 @@ const { counter } = Astro.props;
 		<IconMinus />
 	</button>
 </aside>
-
-<script>
-	let counter = document.querySelectorAll("p[data-counter]");
-  let increase = document.querySelectorAll("button[data-counterIncrease]");
-  let decrease = document.querySelectorAll("button[data-counterDecrease]");
-  const handleIncreaseCounter = (i: number) => {
-		let currentCount = parseInt(counter[i].innerHTML) + 1;
-    counter[i].innerHTML = currentCount.toString();
-  };
-  const handleDecreaseCounter = (i: number) => {
-		let currentCount = parseInt(counter[i].innerHTML) - 1;
-    counter[i].innerHTML = currentCount.toString();
-  };
-  for (let i = 0; i < counter.length; i++) {
-    increase[i].addEventListener("click", () => handleIncreaseCounter(i));
-    decrease[i].addEventListener("click", () => handleDecreaseCounter(i));
-  }
-</script>
 
 <style>
 	aside {

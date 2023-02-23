@@ -1,18 +1,13 @@
----
-import IconReply from "./icons/icon-reply.astro";
+<script>
+	import IconReply from "./icons/icon-reply.astro";
 
-export interface Props {
-	userImage: string;
-	username: string;
-	createdAt: string;
-}
+	export let userImage,	username, createdAt;
 
-const { userImage, username, createdAt } = Astro.props;
----
+</script>
 
 <header>
 	<div>
-		<img src={userImage} alt="Profile image" />
+		<img src={userImage} alt="Profile" />
 		<p class="username">{username}</p>
 		<p>{createdAt}</p>
 	</div>

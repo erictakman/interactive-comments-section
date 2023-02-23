@@ -1,9 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Comment from "../components/Comment.astro";
+import Comment from "../components/Comment.svelte";
 import { data } from "../data/commentsData";
-
-const type = "reply";
 
 ---
 
@@ -13,8 +11,9 @@ const type = "reply";
       data.comments.map((comment) => {
         return (
           <>
-            <Comment
-              id={comment.id}
+            <Comment client:load
+              type={"comment"}
+              edit={comment.user.username === data.currentUser.username}
               userImage={comment.user.image.webp}
               username={comment.user.username}
               content={comment.content}
@@ -27,9 +26,9 @@ const type = "reply";
               <section class="replies">
                 <div class="replies">
                 {comment.replies.map((reply) => (
-                    <Comment
-                      id={reply.id}
-                      type={type}
+                    <Comment client:load
+                      edit={reply.user.username === data.currentUser.username}
+                      type={"reply"}
                       userImage={reply.user.image.webp}
                       username={reply.user.username}
                       content={reply.content}

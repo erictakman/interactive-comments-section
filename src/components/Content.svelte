@@ -3,4 +3,4 @@
 
 </script>
 
-<p data-content>{content}</p>
+<p>{content}</p>

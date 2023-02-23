@@ -1,12 +1,15 @@
 <script>
+	import { isEditing } from "../stores/editingStore";
 	export let content;
 
 </script>
 
-<textarea autocomplete="false" rows="4">
-	{content}
-</textarea>
-<button data-update>Update</button>
+{#if $isEditing}
+	<textarea autocomplete="false" rows="4">
+		{content}
+	</textarea>
+	<button on:click={() => isEditing.set(false)}>Update</button>
+{/if}
 
 <style>
 	textarea {

@@ -1,23 +1,25 @@
 <script>
-	import CommentHeader from "./CommentHeader.svelte";
-	import CommentScore from "./CommentScore.svelte";
+	import Header from "./Header.svelte";
+	import Score from "./Score.svelte";
 	import Content from "./Content.svelte";
 	import Edit from "./Edit.svelte";
+	import { isEditing } from "../stores/editingStore";
 
-	export let type, username, createdAt, userImage, content, counter;
+	export let type, username, createdAt, userImage, content, counter, edit;
 
 </script>
 
 <section class={type == "reply" ? "is-reply" : ""}>
-	<CommentScore counter={counter} />
-	<div data-comment>
-		<CommentHeader
+	<Score counter={counter} />
+	<div>
+		<Header
 			username={username}
 			createdAt={createdAt}
 			userImage={userImage}
+			edit={edit}
 		/>
 		<Content content={content} />
-		<Edit data-edit content={content} />
+		<Edit content={content} />
 	</div>
 </section>
 

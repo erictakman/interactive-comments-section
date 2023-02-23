@@ -1,7 +1,10 @@
 <script>
-	import IconReply from "./icons/icon-reply.astro";
+	import { isEditing } from "../stores/editingStore";
+	import IconDelete from "./icons/icon-delete.svelte";
+	import IconEdit from "./icons/icon-edit.svelte";
+	import IconReply from "./icons/icon-reply.svelte";
 
-	export let userImage,	username, createdAt;
+	export let userImage, username, createdAt, edit;
 
 </script>
 
@@ -11,10 +14,23 @@
 		<p class="username">{username}</p>
 		<p>{createdAt}</p>
 	</div>
-	<button class="reply-button">
-		<IconReply />
-		Reply
-	</button>
+	<div>
+		{#if edit}
+			<button>
+				<IconDelete />
+				Delete
+			</button>
+			<button on:click={() => isEditing.set(true)}> 
+				<IconEdit />
+				Edit
+			</button>
+		{:else}
+			<button>
+				<IconReply />
+				Reply
+			</button>
+		{/if}
+	</div>
 </header>
 
 <style>

@@ -1,6 +1,8 @@
 <script>
-	export let content;
+	export let content, isEditing;
 
 </script>
 
-<p>{content}</p>
+{#if !isEditing}
+	<p>{content}</p>
+{/if}

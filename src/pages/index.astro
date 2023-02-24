@@ -14,7 +14,7 @@ import { data } from "../data/commentsData";
             <Comment client:load
               id={comment.id}
               type={"comment"}
-              edit={comment.user.username === data.currentUser.username}
+              isCurrentUser={comment.user.username === data.currentUser.username}
               userImage={comment.user.image.webp}
               username={comment.user.username}
               content={comment.content}
@@ -29,7 +29,7 @@ import { data } from "../data/commentsData";
                 {comment.replies.map((reply) => (
                     <Comment client:load
                       id={reply.id}
-                      edit={reply.user.username === data.currentUser.username}
+                      isCurrentUser={reply.user.username === data.currentUser.username}
                       type={"reply"}
                       userImage={reply.user.image.webp}
                       username={reply.user.username}

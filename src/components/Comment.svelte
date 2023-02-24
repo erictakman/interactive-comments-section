@@ -4,12 +4,20 @@
 	import Content from "./Content.svelte";
 	import Edit from "./Edit.svelte";
 
-	export let type, username, createdAt, userImage, content, counter, edit, id;
+	export let type, username, createdAt, userImage, content, counter, isCurrentUser, id;
 
 	let isEditing = false;
 
 	const handleIsEditing = () => {
 		isEditing = !isEditing;
+	}
+
+	const handleContent = (newContent) => {
+		content = newContent
+	}
+
+	const handleDeleteComment = () => {
+		console.log("delete");
 	}
 
 </script>
@@ -22,11 +30,11 @@
 			username={username}
 			createdAt={createdAt}
 			userImage={userImage}
-			edit={edit}
+			isCurrentUser={isCurrentUser}
 			handleIsEditing={handleIsEditing}
 		/>
-		<Content content={content} />
-		<Edit isEditing={isEditing} handleIsEditing={handleIsEditing} content={content} />
+		<Content isEditing={isEditing} content={content} />
+		<Edit isEditing={isEditing} handleContent={handleContent} handleIsEditing={handleIsEditing} content={content} />
 	</div>
 </section>
 

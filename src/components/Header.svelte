@@ -1,10 +1,9 @@
 <script>
-	import { comments } from "../stores/editingStore";
 	import IconDelete from "./icons/icon-delete.svelte";
 	import IconEdit from "./icons/icon-edit.svelte";
 	import IconReply from "./icons/icon-reply.svelte";
 
-	export let userImage, username, createdAt, edit, handleIsEditing;
+	export let userImage, username, createdAt, isCurrentUser, handleIsEditing, handleIsReplying, handleDeleteComment;
 
 </script>
 
@@ -12,11 +11,14 @@
 	<div>
 		<img src={userImage} alt="Profile" />
 		<p class="username">{username}</p>
+		{#if isCurrentUser}
+			<p class="bg-[var(--color-moderate-blue)] -ml-1 p-0.5 px-1.5 rounded-sm text-[var(--color-white)] text-sm">you</p>
+		{/if}
 		<p>{createdAt}</p>
 	</div>
 	<div>
-		{#if edit}
-			<button>
+		{#if isCurrentUser}
+			<button class="delete" on:click={() => handleDeleteComment()}>
 				<IconDelete />
 				Delete
 			</button>
@@ -25,7 +27,7 @@
 				Edit
 			</button>
 		{:else}
-			<button>
+			<button on:click={() => handleIsReplying()}>
 				<IconReply />
 				Reply
 			</button>
@@ -57,10 +59,12 @@
 		color: var(--color-moderate-blue);
 		fill: var(--color-moderate-blue);
 	}
-	button:hover,
-	button:hover :global(path) {
-		color: var(--color-light-grayish-blue);
-		fill: var(--color-light-grayish-blue);
+	.delete, .delete :global(path) {
+		color: var(--color-soft-red);
+		fill: var(--color-soft-red);
+	}
+	button:hover {
+		opacity: 0.5;
 	}
 	div {
 		align-items: center;

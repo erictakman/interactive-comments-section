@@ -1,13 +1,16 @@
 <script>
-	export let content, handleIsEditing, isEditing;
+	export let content, handleIsEditing, handleContent, isEditing;
+
+	const handleUpdate = () => {
+		handleContent(content);
+		handleIsEditing();
+	}
 
 </script>
 
 {#if isEditing}
-	<textarea autocomplete="false" rows="4">
-		{content}
-	</textarea>
-	<button on:click={() => handleIsEditing()}>Update</button>
+	<textarea autocomplete="false" rows="4" bind:value={content} />
+	<button on:click={() => handleUpdate()}>Update</button>
 {/if}
 
 <style>

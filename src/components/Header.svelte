@@ -1,10 +1,10 @@
 <script>
-	import { isEditing } from "../stores/editingStore";
+	import { comments } from "../stores/editingStore";
 	import IconDelete from "./icons/icon-delete.svelte";
 	import IconEdit from "./icons/icon-edit.svelte";
 	import IconReply from "./icons/icon-reply.svelte";
 
-	export let userImage, username, createdAt, edit;
+	export let userImage, username, createdAt, edit, handleIsEditing;
 
 </script>
 
@@ -20,7 +20,7 @@
 				<IconDelete />
 				Delete
 			</button>
-			<button on:click={() => isEditing.set(true)}> 
+			<button on:click={() => handleIsEditing()}> 
 				<IconEdit />
 				Edit
 			</button>

@@ -1,14 +1,13 @@
 <script>
-	import { isEditing } from "../stores/editingStore";
-	export let content;
+	export let content, handleIsEditing, isEditing;
 
 </script>
 
-{#if $isEditing}
+{#if isEditing}
 	<textarea autocomplete="false" rows="4">
 		{content}
 	</textarea>
-	<button on:click={() => isEditing.set(false)}>Update</button>
+	<button on:click={() => handleIsEditing()}>Update</button>
 {/if}
 
 <style>

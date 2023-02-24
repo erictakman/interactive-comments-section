@@ -12,6 +12,7 @@ import { data } from "../data/commentsData";
         return (
           <>
             <Comment client:load
+              id={comment.id}
               type={"comment"}
               edit={comment.user.username === data.currentUser.username}
               userImage={comment.user.image.webp}
@@ -27,6 +28,7 @@ import { data } from "../data/commentsData";
                 <div class="replies">
                 {comment.replies.map((reply) => (
                     <Comment client:load
+                      id={reply.id}
                       edit={reply.user.username === data.currentUser.username}
                       type={"reply"}
                       userImage={reply.user.image.webp}

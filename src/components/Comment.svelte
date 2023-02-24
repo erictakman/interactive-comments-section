@@ -3,9 +3,14 @@
 	import Score from "./Score.svelte";
 	import Content from "./Content.svelte";
 	import Edit from "./Edit.svelte";
-	import { isEditing } from "../stores/editingStore";
 
-	export let type, username, createdAt, userImage, content, counter, edit;
+	export let type, username, createdAt, userImage, content, counter, edit, id;
+
+	let isEditing = false;
+
+	const handleIsEditing = () => {
+		isEditing = !isEditing;
+	}
 
 </script>
 
@@ -13,13 +18,15 @@
 	<Score counter={counter} />
 	<div>
 		<Header
+			id={id}
 			username={username}
 			createdAt={createdAt}
 			userImage={userImage}
 			edit={edit}
+			handleIsEditing={handleIsEditing}
 		/>
 		<Content content={content} />
-		<Edit content={content} />
+		<Edit isEditing={isEditing} handleIsEditing={handleIsEditing} content={content} />
 	</div>
 </section>
 

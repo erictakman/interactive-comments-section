@@ -2,6 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import Comment from "../components/Comment.svelte";
 import { data } from "../data/commentsData";
+import Reply from "../components/Reply.svelte";
 
 ---
 
@@ -45,6 +46,7 @@ import { data } from "../data/commentsData";
         );
       })
     }
+    <Reply label="Send" userImage={data.currentUser.image.webp} client:idle />
   </main>
 </Layout>
 

@@ -33,4 +33,7 @@
 		align-self: flex-end;
 		width: fit-content;
 	}
+	button:hover {
+		opacity: 0.5;
+	}
 </style>

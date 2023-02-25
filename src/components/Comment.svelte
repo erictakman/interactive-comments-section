@@ -17,7 +17,7 @@
 	}
 
 	const handleDeleteComment = () => {
-		console.log("delete");
+		showModal = true;
 	}
 
 </script>
